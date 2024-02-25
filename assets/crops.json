@@ -1,0 +1,164 @@
+{
+  "crops": [
+    {
+      "crop_name": "Rice",
+      "varieties": ["Basmati", "Non-Basmati"],
+      "weather_required": "Warm and humid",
+      "growing_period": "120-150 days",
+      "suitable_soil": "Alluvial soil",
+      "major_producers": ["West Bengal", "Uttar Pradesh", "Punjab"]
+    },
+    {
+      "crop_name": "Wheat",
+      "varieties": ["Sharbati", "Durum"],
+      "weather_required": "Cool climate",
+      "growing_period": "90-120 days",
+      "suitable_soil": "Well-drained loamy soil",
+      "major_producers": ["Punjab", "Uttar Pradesh", "Haryana"]
+    },
+    {
+      "crop_name": "Maize",
+      "varieties": ["Hybrid", "Flint"],
+      "weather_required": "Warm and tropical",
+      "growing_period": "90-120 days",
+      "suitable_soil": "Well-drained fertile soil",
+      "major_producers": ["Karnataka", "Andhra Pradesh", "Telangana"]
+    },
+    {
+      "crop_name": "Sugarcane",
+      "varieties": ["CoJ 64", "Co 86032"],
+      "weather_required": "Tropical",
+      "growing_period": "10-24 months",
+      "suitable_soil": "Well-drained fertile soil",
+      "major_producers": ["Uttar Pradesh", "Maharashtra", "Karnataka"]
+    },
+    {
+      "crop_name": "Cotton",
+      "varieties": ["Long Staple", "Medium Staple"],
+      "weather_required": "Tropical",
+      "growing_period": "150-180 days",
+      "suitable_soil": "Black soil",
+      "major_producers": ["Gujarat", "Maharashtra", "Telangana"]
+    },
+    {
+      "crop_name": "Barley",
+      "varieties": ["Two-rowed", "Six-rowed"],
+      "weather_required": "Cool climate",
+      "growing_period": "90-110 days",
+      "suitable_soil": "Well-drained loamy soil",
+      "major_producers": ["Uttar Pradesh", "Rajasthan", "Himachal Pradesh"]
+    },
+    {
+      "crop_name": "Pulses",
+      "varieties": ["Chickpea", "Lentil"],
+      "weather_required": "Cool to warm",
+      "growing_period": "60-120 days",
+      "suitable_soil": "Well-drained loamy soil",
+      "major_producers": ["Madhya Pradesh", "Uttar Pradesh", "Rajasthan"]
+    },
+    {
+      "crop_name": "Oilseeds",
+      "varieties": ["Mustard", "Sunflower"],
+      "weather_required": "Warm and tropical",
+      "growing_period": "90-150 days",
+      "suitable_soil": "Well-drained fertile soil",
+      "major_producers": ["Rajasthan", "Madhya Pradesh", "Gujarat"]
+    },
+    {
+      "crop_name": "Tea",
+      "varieties": ["Assam Tea", "Darjeeling Tea"],
+      "weather_required": "Subtropical to temperate",
+      "growing_period": "3-5 years",
+      "suitable_soil": "Well-drained acidic soil",
+      "major_producers": ["Assam", "West Bengal", "Himachal Pradesh"]
+    },
+    {
+      "crop_name": "Coffee",
+      "varieties": ["Arabica", "Robusta"],
+      "weather_required": "Tropical",
+      "growing_period": "3-4 years",
+      "suitable_soil": "Well-drained acidic soil",
+      "major_producers": ["Karnataka", "Kerala", "Tamil Nadu"]
+    },
+    {
+      "crop_name": "Spices",
+      "varieties": ["Cardamom", "Black Pepper"],
+      "weather_required": "Tropical",
+      "growing_period": "Varies by spice type",
+      "suitable_soil": "Well-drained fertile soil",
+      "major_producers": ["Kerala", "Karnataka", "Tamil Nadu"]
+    },
+    {
+      "crop_name": "Jute",
+      "varieties": ["Tossa Jute", "White Jute"],
+      "weather_required": "Warm and wet",
+      "growing_period": "120-150 days",
+      "suitable_soil": "Alluvial soil",
+      "major_producers": ["West Bengal", "Assam", "Bihar"]
+    },
+    {
+      "crop_name": "Soybean",
+      "varieties": ["NRC7", "JS 335"],
+      "weather_required": "Warm and tropical",
+      "growing_period": "90-120 days",
+      "suitable_soil": "Well-drained fertile soil",
+      "major_producers": ["Madhya Pradesh", "Maharashtra", "Rajasthan"]
+    },
+    {
+      "crop_name": "Potato",
+      "varieties": ["Russet", "Red Pontiac"],
+      "weather_required": "Cool climate",
+      "growing_period": "90-120 days",
+      "suitable_soil": "Loamy, well-drained soil",
+      "major_producers": ["Uttar Pradesh", "West Bengal", "Punjab"]
+    },
+    {
+      "crop_name": "Tomato",
+      "varieties": ["Roma", "Beefsteak"],
+      "weather_required": "Warm climate",
+      "growing_period": "60-90 days",
+      "suitable_soil": "Well-drained, fertile soil",
+      "major_producers": ["Maharashtra", "Karnataka", "Uttar Pradesh"]
+    },
+    {
+      "crop_name": "Carrot",
+      "varieties": ["Nantes", "Imperator"],
+      "weather_required": "Cool to warm climate",
+      "growing_period": "70-120 days",
+      "suitable_soil": "Loamy, well-drained soil",
+      "major_producers": ["Punjab", "Uttar Pradesh", "Haryana"]
+    },
+    {
+      "crop_name": "Grapes",
+      "varieties": ["Thompson Seedless", "Cabernet Sauvignon"],
+      "weather_required": "Warm climate",
+      "growing_period": "120-180 days",
+      "suitable_soil": "Sandy, well-drained soil",
+      "major_producers": ["Maharashtra", "Karnataka", "Telangana"]
+    },
+    {
+      "crop_name": "Mango",
+      "varieties": ["Alphonso", "Kesar"],
+      "weather_required": "Tropical climate",
+      "growing_period": "100-150 days",
+      "suitable_soil": "Sandy, well-drained soil",
+      "major_producers": ["Maharashtra", "Gujarat", "Andhra Pradesh"]
+    },
+    {
+      "crop_name": "Turmeric",
+      "varieties": ["Alleppey Finger", "Salem"],
+      "weather_required": "Warm climate",
+      "growing_period": "210-270 days",
+      "suitable_soil": "Loamy, well-drained soil",
+      "major_producers": ["Andhra Pradesh", "Tamil Nadu", "Karnataka"]
+    },
+    {
+      "crop_name": "Others",
+      "varieties": ["Varies"],
+      "weather_required": "Varies",
+      "growing_period": "Varies",
+      "suitable_soil": "Varies",
+      "major_producers": ["Varies"]
+    }
+  ]
+}

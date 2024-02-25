@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "753708203802",
+    "project_id": "farmers-476a9",
+    "storage_bucket": "farmers-476a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:753708203802:android:5e6d10ff18283e5c28b6a3",
+        "android_client_info": {
+          "package_name": "com.example.learnwidget"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyd0fitkKLL5JXi7JXaCyndoV2TxTBtK0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
