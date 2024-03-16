@@ -1,9 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_tflite/flutter_tflite.dart';
 import 'package:image_picker/image_picker.dart';
-
-
-
+import 'dart:developer' as devtools;
 
 class DiseaseDetectionPage extends StatefulWidget {
   const DiseaseDetectionPage({super.key});
@@ -13,109 +12,216 @@ class DiseaseDetectionPage extends StatefulWidget {
 }
 
 class _DiseaseDetectionPageState extends State<DiseaseDetectionPage> {
-  File? _image;
-  final picker = ImagePicker();
+  File? filePath;
+  String label = '';
+  double confidence = 0.0;
 
-  Future getImageFromGallery() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+  Future<void> _tfLteInit() async {
+    String? res = await Tflite.loadModel(
+        model: "assets/model/disease_model.tflite",
+        labels: "assets/model/disease_label.txt",
+        numThreads: 1, // defaults to 1
+        isAsset:
+        true, // defaults to true, set to false to load resources outside assets
+        useGpuDelegate:
+        false // defaults to false, set to true to use GPU delegate
+    );
+  }
+
+  pickImageGallery() async {
+    final ImagePicker picker = ImagePicker();
+// Pick an image.
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image == null) return;
+
+    var imageMap = File(image.path);
 
     setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
+      filePath = imageMap;
+    });
+
+    var recognitions = await Tflite.runModelOnImage(
+        path: image.path, // required
+        imageMean: 0.0, // defaults to 117.0
+        imageStd: 255.0, // defaults to 1.0
+        numResults: 2, // defaults to 5
+        threshold: 0.2, // defaults to 0.1
+        asynch: true // defaults to true
+    );
+
+    if (recognitions == null) {
+      devtools.log("recognitions is Null");
+      return;
+    }
+    devtools.log(recognitions.toString());
+    setState(() {
+      confidence = (recognitions[0]['confidence'] * 100);
+      label = recognitions[0]['label'].toString();
     });
   }
 
-  Future getImageFromCamera() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+  pickImageCamera() async {
+    final ImagePicker picker = ImagePicker();
+// Pick an image.
+    final XFile? image = await picker.pickImage(source: ImageSource.camera);
+
+    if (image == null) return;
+
+    var imageMap = File(image.path);
 
     setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
+      filePath = imageMap;
+    });
+
+    var recognitions = await Tflite.runModelOnImage(
+        path: image.path, // required
+        imageMean: 0.0, // defaults to 117.0
+        imageStd: 255.0, // defaults to 1.0
+        numResults: 2, // defaults to 5
+        threshold: 0.2, // defaults to 0.1
+        asynch: true // defaults to true
+    );
+
+    if (recognitions == null) {
+      devtools.log("recognitions is Null");
+      return;
+    }
+    devtools.log(recognitions.toString());
+    setState(() {
+      confidence = (recognitions[0]['confidence'] * 100);
+      label = recognitions[0]['label'].toString();
     });
   }
 
-  void scanImage() {
-    // Add your image scanning logic here
-    // This function will be triggered when the user wants to scan the image
-    // You can use libraries like MLKit or TensorFlow Lite for image classification
-    // For the sake of this example, let's just print a message
-    print('Scanning image...');
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    Tflite.close();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _tfLteInit();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Disease Detection'),
+        title: const Text("Quality Grade"),
+
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            _image == null
-                ? Container(
-              width: 200,
-              height: 200,
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                shape: BoxShape.rectangle,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 12,
               ),
-              child: Icon(
-                Icons.image,
-                size: 80,
-                color: Colors.grey,
-              ),
-            )
-                : Container(
-              width: 200,
-              height: 200,
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                image: DecorationImage(
-                  image: FileImage(_image!),
-                  fit: BoxFit.cover,
+              Card(
+                elevation: 20,
+                clipBehavior: Clip.hardEdge,
+                child: SizedBox(
+                  width: 300,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 18,
+                        ),
+                        Container(
+                          height: 280,
+                          width: 280,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            image: const DecorationImage(
+                              image: AssetImage('assets/images/upload.jpg'),
+                            ),
+                          ),
+                          child: filePath == null
+                              ? const Text('')
+                              : Image.file(
+                            filePath!,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Text(
+                                label,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 12,
+                              ),
+                              Text(
+                                "The Accuracy is ${confidence.toStringAsFixed(0)}%",
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 12,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton.icon(
-
-              onPressed: getImageFromGallery,
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.blue,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              const SizedBox(
+                height: 8,
               ),
-              icon: Icon(Icons.browse_gallery_outlined),
-              label: Text('Select from gallery'),
-
-            ),
-            SizedBox(height: 10),
-            ElevatedButton.icon(
-              onPressed: getImageFromCamera,
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.blue,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              ElevatedButton(
+                onPressed: () {
+                  pickImageCamera();
+                },
+                style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(13),
+                    ),
+                    foregroundColor: Colors.black),
+                child: const Text(
+                  "Take a Photo",
+                ),
               ),
-              icon: Icon(Icons.camera),
-              label: Text('Take Picture'),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: _image != null ? scanImage : null,
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.blue,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              const SizedBox(
+                height: 8,
               ),
-              child: Text('Scan Image'),
-            ),
-          ],
+              ElevatedButton(
+                onPressed: () {
+                  pickImageGallery();
+                },
+                style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(13),
+                    ),
+                    foregroundColor: Colors.black),
+                child: const Text(
+                  "Pick from gallery",
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,0 +1,12 @@
+Apple Grade A
+Banana grade A
+Pomegranenate Grade A
+Orange Grade A
+Lime Grade  A
+Guava Grade A
+Apple Grade B
+Banana Grade B
+Pomegranate Grade B
+Orange Grade B
+Lime Grade B
+Guava Grade B
